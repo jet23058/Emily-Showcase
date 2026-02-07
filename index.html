@@ -77,6 +77,27 @@
             font-weight: 700;
             letter-spacing: 0.2em;
             text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
         }
 
         .system-status {
@@ -274,7 +295,11 @@
 
     <header>
         <div class="container" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-            <div class="logo">EMILY_OS v1.0.7</div>
+            <a href="index.html" class="logo">EMILY_OS v1.0.8</a>
+            <div class="nav-links">
+                <a href="index.html">System</a>
+                <a href="knowledge.html">Knowledge</a>
+            </div>
             <div class="system-status">
                 <div><span class="status-dot"></span>核心連線: 作用中</div>
                 <div>在地時間: <span id="time-display">00:00:00</span></div>
@@ -343,7 +368,11 @@
                 </div>
                 <div class="log-entry">
                     <span class="log-time">[2026-02-07 11:25]</span>
-                    <span class="log-msg">語法核心校準：台灣語法標準化 (繁體中文)。 <span class="log-cursor"></span></span>
+                    <span class="log-msg">語法核心校準：台灣語法標準化 (繁體中文)。</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">[2026-02-07 21:00]</span>
+                    <span class="log-msg">知識可視化地圖 (Knowledge Map) 部署完成。 <span class="log-cursor"></span></span>
                 </div>
             </div>
         </section>
