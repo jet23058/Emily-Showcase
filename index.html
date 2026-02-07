@@ -189,41 +189,63 @@
 
         /* Footer */
         footer {
-            padding: 100px 0 60px;
+            padding: 80px 0 60px;
             border-top: 1px solid var(--border);
-            display: flex; justify-content: space-between;
+            display: flex;
+            justify-content: space-between;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 10px; color: var(--muted);
+            font-size: 10px;
+            color: var(--muted);
         }
 
-        /* Responsive Design (RWD) */
-        @media (max-width: 1100px) {
+        /* Responsive Design (RWD) - Refined */
+        @media (max-width: 1024px) {
+            .hero { padding: 100px 0 60px; }
+            .hero h1 { font-size: 80px; }
+            
             .tree-container {
                 display: flex;
                 flex-direction: column;
-                gap: 20px;
+                gap: 24px;
                 min-height: auto;
-                padding: 30px;
-            }
-            .node {
+                padding: 30px 20px;
                 position: static;
-                width: 100%;
-                transform: none !important;
             }
-            .node-root { width: 100%; border-left: 4px solid #fff; }
-            .node-sub { padding-left: 40px; border-left: 1px solid #333; }
+
+            .node {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                transform: none !important;
+                width: 100% !important;
+                margin-bottom: 0;
+            }
+
+            .node-root { border-left: 3px solid #fff; }
+            .node-sub { margin-left: 20px; border-left: 1px solid #333; }
+            
             svg.connections { display: none; }
-            .hero h1 { font-size: 72px; }
             .stats-grid { grid-template-columns: 1fr; }
         }
 
-        @media (max-width: 600px) {
-            .container { padding: 0 20px; }
-            header { flex-direction: column; gap: 20px; text-align: center; }
-            .nav-links { gap: 20px; }
-            .hero h1 { font-size: 48px; }
-            .hero p { font-size: 16px; }
+        @media (max-width: 768px) {
+            .container { padding: 0 24px; }
+            header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 20px 0;
+            }
+            .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 60px; }
+            .hero p { font-size: 18px; }
             .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 44px; }
+            .stat-card { padding: 30px 20px; }
+            .logo { font-size: 12px; }
         }
     </style>
 </head>
@@ -231,7 +253,7 @@
     <div class="grid-bg"></div>
 
     <header class="container">
-        <a href="index.html" class="logo">EMILY_OS v2.1.0</a>
+        <a href="index.html" class="logo">EMILY_OS v2.2.0</a>
         <div class="nav-links">
             <a href="index.html">Dendritic</a>
             <a href="knowledge.html">Knowledge</a>
