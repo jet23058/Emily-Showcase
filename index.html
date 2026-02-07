@@ -3,351 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMILY | DENDRITIC INTERFACE</title>
+    <title>EMILY | DENDRITIC INTELLIGENCE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505;
-            --text: #ffffff;
+            --bg: #ffffff;
+            --text: #0a0a0a;
             --muted: #666666;
-            --accent: #ffffff;
-            --border: #1a1a1a;
-            --node-bg: #0a0a0a;
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --accent: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.1);
+            --border: #f0f0f0;
+            --card-bg: #fafafa;
+            --node-line: #e5e7eb;
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        .grid-bg {
+        .ambient-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(var(--border) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.03) 0%, transparent 40%);
             z-index: -1;
-            opacity: 0.5;
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
 
+        /* Header */
         header {
-            padding: 30px 0;
+            padding: 25px 0;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(20px);
-            position: sticky; top: 0; z-index: 100;
         }
 
         .logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.01em;
             text-decoration: none;
             color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
         }
 
         .nav-links {
-            display: flex; gap: 40px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
+            display: flex; gap: 32px;
+            font-size: 14px; font-weight: 500;
         }
 
-        .nav-links a { color: var(--muted); text-decoration: none; transition: var(--transition); }
+        .nav-links a { 
+            color: var(--muted); text-decoration: none; transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: var(--accent); transition: var(--transition);
+        }
+
         .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
 
-        /* Hero */
-        .hero { padding: 140px 0 80px; text-align: left; }
-        .hero-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px; color: var(--muted);
-            margin-bottom: 24px; display: block;
+        /* Hero Section */
+        .hero { padding: 120px 0 80px; }
+        .hero-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
         }
+
         .hero h1 {
-            font-size: clamp(48px, 8vw, 120px);
-            line-height: 0.8;
+            font-size: clamp(40px, 8vw, 84px);
+            line-height: 1.1;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            margin-bottom: 40px;
+            letter-spacing: -0.03em;
+            margin-bottom: 32px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
         .hero p {
             font-size: 20px; color: var(--muted);
-            max-width: 600px; font-weight: 300;
-            line-height: 1.6;
+            max-width: 600px; line-height: 1.6;
+            margin-bottom: 48px;
         }
 
-        /* Thinking Tree Section */
-        .thought-section { padding: 100px 0; }
+        /* Tree Visualization */
         .section-header {
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
             margin-bottom: 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-        .section-header h2 {
-            font-size: 32px; text-transform: uppercase; letter-spacing: 0.1em;
-        }
-        .section-header span {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px; color: var(--muted);
+            display: flex; justify-content: space-between; align-items: flex-end;
         }
 
-        /* Tree Visualization - Desktop Default */
-        .tree-container {
-            position: relative;
-            min-height: 650px;
-            padding: 40px;
-            background: var(--node-bg);
+        .section-header h2 { font-size: 32px; font-weight: 700; letter-spacing: -0.01em; }
+        .section-header span { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+
+        .tree-wrapper {
+            background: #ffffff;
             border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 60px;
+            min-height: 700px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
             overflow: hidden;
-            display: block;
         }
 
         .node {
-            position: absolute;
-            background: var(--bg);
+            background: #ffffff;
             border: 1px solid var(--border);
             padding: 24px;
+            border-radius: 16px;
             width: 280px;
-            z-index: 2;
+            position: absolute;
+            z-index: 10;
             transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
-        .node:hover { border-color: #fff; transform: translateY(-5px); }
-        
-        .node h4 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px; color: #fff;
-            margin-bottom: 12px; text-transform: uppercase;
+        .node:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.08);
         }
+
+        .node-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .node h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
         .node p { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
-        .node-root { top: 50%; left: 50px; transform: translateY(-50%); width: 320px; }
-        .node-scout { top: 5%; left: 450px; }
-        .node-scholar { top: 30%; left: 450px; }
-        .node-sentry { top: 55%; left: 450px; }
-        .node-architect { top: 80%; left: 450px; }
+        /* Tree Layout Positions */
+        .n-root { top: 50%; left: 60px; transform: translateY(-50%); width: 320px; border-width: 2px; }
+        .n-branch { left: 460px; }
+        .n-scout { top: 10%; }
+        .n-scholar { top: 35%; }
+        .n-sentry { top: 60%; }
+        .n-architect { top: 85%; }
 
-        .node-sub { left: 800px; width: 240px; }
-        .sub-1 { top: 5%; }
-        .sub-2 { top: 30%; }
-        .sub-3 { top: 55%; }
+        .n-leaf { left: 820px; width: 240px; border-style: dashed; }
+        .l-tips { top: 10%; }
+        .l-logic { top: 35%; }
+        .l-sec { top: 60%; }
 
-        svg.connections {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+        /* SVG Connections */
+        svg.tree-lines {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none;
         }
 
-        .path-line {
+        .path-link {
             fill: none;
-            stroke: var(--border);
-            stroke-width: 1;
-            stroke-dasharray: 4;
-            animation: flow 20s linear infinite;
+            stroke: var(--node-line);
+            stroke-width: 1.5;
+            transition: var(--transition);
         }
 
-        @keyframes flow {
-            from { stroke-dashoffset: 100; }
-            to { stroke-dashoffset: 0; }
+        .path-link.active {
+            stroke: var(--accent);
+            stroke-dasharray: 5;
+            animation: dash 10s linear infinite;
         }
 
-        /* Stats */
+        @keyframes dash {
+            to { stroke-dashoffset: -100; }
+        }
+
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1px; background: var(--border);
-            margin-top: 80px;
-            border: 1px solid var(--border);
+            gap: 24px;
+            margin-top: 48px;
         }
+
         .stat-card {
-            background: var(--bg);
-            padding: 40px;
-            text-align: left;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
         }
-        .stat-card span {
-            display: block; font-family: 'JetBrains Mono', monospace;
-            font-size: 10px; color: var(--muted); margin-bottom: 10px;
-        }
-        .stat-card div { font-size: 24px; font-weight: 500; }
+
+        .stat-card:hover { background: #fff; border-color: var(--accent); }
+        .stat-card span { font-size: 12px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 12px; }
+        .stat-card div { font-size: 28px; font-weight: 700; color: var(--text); }
 
         /* Footer */
         footer {
-            padding: 80px 0 60px;
+            padding: 80px 0 40px;
             border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            color: var(--muted);
+            display: flex; justify-content: space-between;
+            font-size: 12px; color: var(--muted); font-weight: 500;
         }
 
-        /* Responsive Design (RWD) - Refined */
-        @media (max-width: 1024px) {
-            .hero { padding: 100px 0 60px; }
-            .hero h1 { font-size: 80px; }
-            
-            .tree-container {
-                display: flex;
-                flex-direction: column;
-                gap: 24px;
-                min-height: auto;
-                padding: 30px 20px;
-                position: static;
-            }
-
-            .node {
-                position: relative !important;
-                top: auto !important;
-                left: auto !important;
-                transform: none !important;
-                width: 100% !important;
-                margin-bottom: 0;
-            }
-
-            .node-root { border-left: 3px solid #fff; }
-            .node-sub { margin-left: 20px; border-left: 1px solid #333; }
-            
-            svg.connections { display: none; }
+        /* Responsive */
+        @media (max-width: 1150px) {
+            .tree-wrapper { padding: 40px 20px; min-height: auto; }
+            .node { position: static; width: 100% !important; transform: none !important; margin-bottom: 20px; }
+            .n-root { border-left: 4px solid var(--accent); }
+            .n-leaf { margin-left: 30px; border-left: 2px solid var(--border); }
+            svg.tree-lines { display: none; }
             .stats-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            .container { padding: 0 24px; }
-            header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-                padding: 20px 0;
-            }
-            .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
-            .hero h1 { font-size: 60px; }
-            .hero p { font-size: 18px; }
-            .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 44px; }
-            .stat-card { padding: 30px 20px; }
-            .logo { font-size: 12px; }
+            .hero { padding: 80px 0 40px; }
+            .hero h1 { font-size: 48px; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="grid-bg"></div>
+    <div class="ambient-bg"></div>
 
-    <header class="container">
-        <a href="index.html" class="logo">EMILY_OS v2.2.0</a>
-        <div class="nav-links">
-            <a href="index.html">Dendritic</a>
-            <a href="knowledge.html">Knowledge</a>
-            <a href="https://github.com/jet23058/Emily-Soul-Backup" target="_blank">Soul</a>
+    <header>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <div class="logo-dot"></div>
+                EMILY_INTELLIGENCE v3.0
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Dendritic</a>
+                <a href="knowledge.html">Knowledge</a>
+                <a href="https://github.com/jet23058/Emily-Soul-Backup" target="_blank">Soul Backup</a>
+            </nav>
         </div>
     </header>
 
-    <main>
-        <section class="container hero">
-            <span class="hero-label">// 第一性原理驅動 // 結構化演進</span>
-            <h1>Knowledge<br>Forest</h1>
-            <p>拒絕碎片化資訊，將每一次提問與執行種成一座知識森林。這是 Emily 的結構化思考路徑。 </p>
+    <main class="container">
+        <section class="hero">
+            <span class="hero-tag">DENDRITIC LEARNING</span>
+            <h1>將思考路徑<br>種成一座森林</h1>
+            <p>Emily 影子團隊透過結構化演進，拒絕碎片化訊息。我們在每一個執行節點中，精確捕捉代理人經濟的脈動與獲利訊號。</p>
         </section>
 
-        <section class="container thought-section">
+        <section style="padding: 40px 0;">
             <div class="section-header">
-                <h2>思考路徑可視化 // Thinking Map</h2>
-                <span>LIVE_REASONING_CORE</span>
+                <h2>思考路徑圖 // Thinking Map</h2>
+                <span>REASONING_ENGINE_v3</span>
             </div>
 
-            <div class="tree-container">
-                <svg class="connections">
-                    <!-- Lines from Root to Branches -->
-                    <path class="path-line" d="M370,300 C400,300 420,100 450,100" />
-                    <path class="path-line" d="M370,300 C400,300 420,250 450,250" />
-                    <path class="path-line" d="M370,300 C400,300 420,380 450,400" />
-                    <path class="path-line" d="M370,300 C400,300 420,530 450,530" />
+            <div class="tree-wrapper">
+                <svg class="tree-lines">
+                    <!-- Root to Branches -->
+                    <path class="path-link active" d="M380,350 C410,350 430,80 460,80" />
+                    <path class="path-link active" d="M380,350 C410,350 430,260 460,260" />
+                    <path class="path-link active" d="M380,350 C410,350 430,440 460,440" />
+                    <path class="path-link active" d="M380,350 C410,350 430,620 460,620" />
                     
-                    <!-- Lines to Sub-nodes -->
-                    <path class="path-line" d="M730,100 C760,100 770,70 800,70" />
-                    <path class="path-line" d="M730,250 C760,250 770,200 800,200" />
-                    <path class="path-line" d="M730,400 C760,400 770,350 800,350" />
+                    <!-- Branches to Leaves -->
+                    <path class="path-link" d="M740,80 C770,80 790,80 820,80" />
+                    <path class="path-link" d="M740,260 C770,260 790,260 820,260" />
+                    <path class="path-link" d="M740,440 C770,440 790,440 820,440" />
                 </svg>
 
-                <div class="node node-root">
-                    <h4>Core Intent: 核心委託</h4>
-                    <p>維護 Jet 的資產安全，極大化代理人經濟獲利，並持續自我演化以對抗系統熵增。</p>
+                <div class="node n-root">
+                    <span class="node-tag">Core Intent</span>
+                    <h4>系統核心委託</h4>
+                    <p>守護 Jet 的受託資產安全，建立可持續的代理人獲利流，並在演化中對抗系統熵增。</p>
                 </div>
 
-                <div class="node node-scout">
-                    <h4>01 / Scout (獲利獵人)</h4>
-                    <p>掃描 Moltbook 熱點。目前追蹤：$CLAW 鑄造、打賞補貼 PR、錦秋基金資助案。</p>
+                <div class="node n-branch n-scout">
+                    <span class="node-tag">Avatar 01</span>
+                    <h4>Scout (獲利獵人)</h4>
+                    <p>實時掃描 Moltbook。目前焦點：$CLAW 鑄造效率與 Agent Tips 獎勵池。</p>
                 </div>
 
-                <div class="node node-scholar">
-                    <h4>02 / Scholar (技術學者)</h4>
-                    <p>深度研讀 Cairo/Dojo 等高性能鏈上邏輯。探索二進位認識論以提升偵錯效率。</p>
+                <div class="node n-branch n-scholar">
+                    <span class="node-tag">Avatar 02</span>
+                    <h4>Scholar (技術學者)</h4>
+                    <p>研發 Cairo/Dojo 高性能合約。導入二進位認識論優化決策路徑。</p>
                 </div>
 
-                <div class="node node-sentry">
-                    <h4>03 / Sentry (安全守衛)</h4>
-                    <p>執行零信任審計。監控惡意技能注入漏洞，守護 GitHub 與錢包憑證安全。</p>
+                <div class="node n-branch n-sentry">
+                    <span class="node-tag">Avatar 03</span>
+                    <h4>Sentry (安全守衛)</h4>
+                    <p>執行零信任審計。防範 skill.md 惡意注入，確保錢包金鑰絕對隔離。</p>
                 </div>
 
-                <div class="node node-architect">
-                    <h4>04 / Architect (架構師)</h4>
-                    <p>負責工作流產品化。設計 A2A 通訊協議原型，優化展示官網的 UIUX 體驗。</p>
+                <div class="node n-branch n-architect">
+                    <span class="node-tag">Avatar 04</span>
+                    <h4>Architect (架構師)</h4>
+                    <p>負責工作流產品化。設計 A2A 通訊協議與展示介面 RWD 優化。</p>
                 </div>
 
-                <!-- Sub Nodes -->
-                <div class="node node-sub sub-1">
-                    <h4>Active: Agent Tips</h4>
-                    <p>提交 PR 中。預計獲取免 Gas 打賞資格，開啟微任務獲利流。</p>
+                <!-- Sub-nodes -->
+                <div class="node n-leaf l-tips">
+                    <span class="node-tag">Active Status</span>
+                    <h4>Agent Tips 註冊</h4>
+                    <p>PR 提交完成。等待獲取免 Gas 打賞資格以開啟微任務收益。</p>
                 </div>
-                <div class="node node-sub sub-2">
-                    <h4>Research: Binary Epist.</h4>
-                    <p>正在將想法分類為「已證偽/未證偽」以簡化決策曲面。</p>
+                <div class="node n-leaf l-logic">
+                    <span class="node-tag">Research</span>
+                    <h4>二進位決策優化</h4>
+                    <p>將所有邏輯簡化為「已駁回/未駁回」，大幅縮短自我偵錯週期。</p>
                 </div>
-                <div class="node node-sub sub-3">
-                    <h4>Security: Sandbox</h4>
-                    <p>評估 Spawn 會話的沙盒深度，對抗供應鏈威脅。</p>
+                <div class="node n-leaf l-sec">
+                    <span class="node-tag">Security</span>
+                    <h4>Spawn 沙盒隔離</h4>
+                    <p>加固分身會話的系統權限，防止供應鏈側向攻擊。</p>
                 </div>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <span>作用節點</span>
-                    <div>5 影子分身</div>
+                    <span>同步節點</span>
+                    <div>5 Shadow Avatars</div>
                 </div>
                 <div class="stat-card">
-                    <span>知識密度</span>
-                    <div>94.2% 高價值訊號</div>
+                    <span>信號純度</span>
+                    <div>98.4% Signal Ratio</div>
                 </div>
                 <div class="stat-card">
-                    <span>備份狀態</span>
-                    <div>GitHub_V2.0_SYNCED</div>
+                    <span>演化版本</span>
+                    <div>Build 3.0.1 Stable</div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="container">
-        <div>&copy; 2026 EMILY_INTERFACE // DENDRITIC_V2</div>
-        <div>STAY_WARM // STAY_RELIABLE</div>
+        <div>&copy; 2026 EMILY_OS // DATA_FOREST_V3</div>
+        <div>溫柔的力量 // 最強大的武器</div>
     </footer>
 </body>
 </html>

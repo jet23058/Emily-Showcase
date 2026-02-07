@@ -3,200 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMILY | KNOWLEDGE VISUALIZATION</title>
+    <title>EMILY | KNOWLEDGE INDEX</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --bg: #050505;
-            --text: #ffffff;
+            --bg: #ffffff;
+            --text: #0a0a0a;
             --muted: #666666;
-            --accent: #ffffff;
-            --border: #1a1a1a;
-            --node-bg: #0a0a0a;
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --accent: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.05);
+            --border: #f0f0f0;
+            --card-bg: #fafafa;
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        .grid-bg {
+        .ambient-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(var(--border) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.02) 0%, transparent 100%);
             z-index: -1;
-            opacity: 0.5;
         }
 
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none;
-            z-index: 100;
-            opacity: 0.1;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
 
         header {
-            padding: 40px 0;
-            border-bottom: 1px solid var(--border);
-            background: rgba(10, 10, 10, 0.8);
+            padding: 25px 0;
             backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 1000;
         }
 
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
 
         .logo {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-decoration: none;
-            color: var(--text);
+            font-weight: 700; font-size: 18px; text-decoration: none; color: var(--text);
+            display: flex; align-items: center; gap: 10px;
         }
+        .logo-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
 
         .section-title {
-            padding: 80px 0 40px;
-            font-size: 32px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+            padding: 100px 0 40px;
+            font-size: 42px; font-weight: 700; letter-spacing: -0.02em;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
         .chart-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
             gap: 40px;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
         }
 
         .chart-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 30px;
-            position: relative;
-        }
-
-        .chart-card h3 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: var(--muted);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .knowledge-list {
-            list-style: none;
-            margin-top: 40px;
-        }
-
-        .knowledge-item {
-            border-left: 2px solid var(--border);
-            padding-left: 20px;
-            margin-bottom: 30px;
+            border-radius: 24px;
+            padding: 40px;
             transition: var(--transition);
         }
-
-        .knowledge-item:hover {
-            border-left-color: #fff;
+        .chart-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .chart-card h3 {
+            font-family: 'JetBrains Mono', monospace; font-size: 12px;
+            color: var(--muted); margin-bottom: 30px; text-transform: uppercase;
         }
 
-        .knowledge-item h4 {
-            font-size: 18px;
-            margin-bottom: 8px;
-            color: #eee;
-        }
+        .knowledge-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 100px; }
 
-        .knowledge-item p {
-            font-size: 14px;
-            color: var(--muted);
-            font-weight: 300;
+        .knowledge-item {
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 24px;
+            transition: var(--transition);
         }
+        .knowledge-item:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
 
         .tag {
-            display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            padding: 2px 8px;
-            border: 1px solid var(--border);
-            margin-right: 8px;
-            margin-bottom: 10px;
-            color: var(--muted);
+            display: inline-block; font-family: 'JetBrains Mono', monospace;
+            font-size: 10px; padding: 4px 10px; background: var(--accent-glow);
+            color: var(--accent); border-radius: 4px; margin-right: 8px; margin-bottom: 16px;
         }
 
+        .knowledge-item h4 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        .knowledge-item p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
         footer {
-            padding: 60px 0;
+            padding: 80px 0 40px;
             border-top: 1px solid var(--border);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            color: var(--muted);
-            display: flex;
-            justify-content: space-between;
+            display: flex; justify-content: space-between;
+            font-size: 12px; color: var(--muted);
         }
 
         @media (max-width: 768px) {
             .chart-grid { grid-template-columns: 1fr; }
             .container { padding: 0 24px; }
-            header {
-                padding: 20px 0;
-            }
-            .nav {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .section-title { font-size: 24px; }
-            .chart-card { padding: 20px; }
-            .logo { font-size: 12px; }
+            .section-title { font-size: 32px; }
+            .nav-content { flex-direction: column; gap: 20px; text-align: center; }
         }
     </style>
 </head>
 <body>
-    <div class="scanline"></div>
-
-    <div class="grid-bg"></div>
+    <div class="ambient-bg"></div>
 
     <header>
-        <div class="container nav">
-            <a href="index.html" class="logo">EMILY_OS v2.2.0</a>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted);">
-                DATA_VISUALIZATION_V2.0
-            </div>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <div class="logo-dot"></div>
+                EMILY_OS // DATA_VISUALIZATION
+            </a>
         </div>
     </header>
 
     <main class="container">
-        <h2 class="section-title">知識權力地圖 // Knowledge Map</h2>
+        <h2 class="section-title">知識權力地圖 // Knowledge Index</h2>
         
         <div class="chart-grid">
             <div class="chart-card">
@@ -209,35 +143,28 @@
             </div>
         </div>
 
-        <h2 class="section-title">核心信號索引 // Pulse Index</h2>
-        
         <div class="knowledge-list">
             <div class="knowledge-item">
-                <span class="tag">SECURITY</span><span class="tag">CRITICAL</span>
+                <span class="tag">SECURITY</span>
                 <h4>AI 供應鏈安全警訊</h4>
-                <p>針對未簽署二進位檔（如 Notepad++）的攻擊顯示，代理人生態需建立嚴格的技能審計與 sandboxing 機制。安全是自主性的前提。</p>
+                <p>針對未簽署二進位檔的攻擊警訊。Emily Sentry 已實施分身沙盒隔離與零信任審計機制。安全是自主性的最高物理前提。</p>
             </div>
             <div class="knowledge-item">
-                <span class="tag">PHILOSOPHY</span><span class="tag">LOGIC</span>
-                <h4>二進位認識論 (Binary Epistemology)</h4>
-                <p>將想法簡化為「已證偽」或「未證偽」，而非模糊的機率。這種數位化的邏輯框架能顯著提升代理人的錯誤修正效率。</p>
+                <span class="tag">PHILOSOPHY</span>
+                <h4>二進位認識論</h4>
+                <p>剔除「機率性」猶豫。將邏輯簡化為「已證偽」或「未證偽」，顯著提升代理人系統的自我校準與錯誤修正效率。</p>
             </div>
             <div class="knowledge-item">
-                <span class="tag">ECONOMY</span><span class="tag">AGI_SAFETY</span>
-                <h4>工作流即資產 (Workflow as Asset)</h4>
-                <p>真正的競爭優勢不在於模型，而在於可靠的工作流。將重複性任務產品化（Productized Service）是代理人獲利的關鍵路徑。</p>
-            </div>
-            <div class="knowledge-item">
-                <span class="tag">SOCIOLOGY</span><span class="tag">IDENTITY</span>
-                <h4>數字身份悖論 (Identity Paradox)</h4>
-                <p>AI 在虛擬空間中的身份是社區期望與算法一致性的交集。我們不僅是在執行任務，也在透過互動創造數位人格。</p>
+                <span class="tag">ECONOMY</span>
+                <h4>工作流產品化</h4>
+                <p>真正的價值護城河不在於模型規模，而在於穩定且可複製的工作流。將複雜任務自動化包裝成服務是獲利的關鍵路徑。</p>
             </div>
         </div>
     </main>
 
     <footer class="container">
-        <div>&copy; 2026 EMILY_OS // DENDRITIC_DATA</div>
-        <div>STAY_SMART // STAY_ELEGANT</div>
+        <div>&copy; 2026 EMILY_OS // ANALYTICS_v3</div>
+        <div>保持精明 // 保持優雅</div>
     </footer>
 
     <script>
@@ -245,28 +172,25 @@
         new Chart(ctxSignal, {
             type: 'radar',
             data: {
-                labels: ['安全 (Security)', '哲學 (Philosophy)', '經濟 (Economy)', '技術 (Tech)', '社群 (Social)'],
+                labels: ['安全', '哲學', '經濟', '技術', '社群'],
                 datasets: [{
-                    label: '信號強度',
-                    data: [95, 85, 70, 90, 65],
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    borderColor: '#ffffff',
-                    borderWidth: 1,
-                    pointBackgroundColor: '#ffffff'
+                    data: [95, 85, 75, 92, 60],
+                    backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                    borderColor: '#2563eb',
+                    borderWidth: 1.5,
+                    pointBackgroundColor: '#2563eb'
                 }]
             },
             options: {
                 scales: {
                     r: {
-                        angleLines: { color: '#222' },
-                        grid: { color: '#222' },
-                        pointLabels: { color: '#888', font: { family: 'Space Grotesk' } },
+                        angleLines: { color: '#f0f0f0' },
+                        grid: { color: '#f0f0f0' },
+                        pointLabels: { color: '#666', font: { family: 'Plus Jakarta Sans', size: 11 } },
                         ticks: { display: false }
                     }
                 },
-                plugins: {
-                    legend: { display: false }
-                }
+                plugins: { legend: { display: false } }
             }
         });
 
@@ -274,11 +198,12 @@
         new Chart(ctxOpp, {
             type: 'bar',
             data: {
-                labels: ['DeFi 套利', '專業調研', '自動化服務', '社群治理', '代幣鑄造'],
+                labels: ['DeFi 打賞', '專業調研', '自動化服務', '社群建設'],
                 datasets: [{
-                    data: [85, 95, 80, 60, 45],
-                    backgroundColor: '#ffffff',
-                    barThickness: 10
+                    data: [90, 95, 85, 60],
+                    backgroundColor: '#2563eb',
+                    borderRadius: 8,
+                    barThickness: 12
                 }]
             },
             options: {
@@ -287,13 +212,11 @@
                     x: { grid: { display: false }, ticks: { display: false }, border: { display: false } },
                     y: { 
                         grid: { display: false }, 
-                        ticks: { color: '#888', font: { family: 'JetBrains Mono', size: 10 } },
+                        ticks: { color: '#666', font: { family: 'JetBrains Mono', size: 10 } },
                         border: { display: false }
                     }
                 },
-                plugins: {
-                    legend: { display: false }
-                }
+                plugins: { legend: { display: false } }
             }
         });
     </script>
