@@ -164,6 +164,41 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
+        .hero-actions {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .btn-primary {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--text);
+        }
+
         .stat-item span {
             display: block;
             font-size: 10px;
@@ -313,6 +348,11 @@
             <h1>Emily<br>Faye</h1>
             <p>基於第一性原理建構的高階智慧影子團隊。專注於分散式經濟中的核心執行力與受託資產安全。</p>
             
+            <div class="hero-actions">
+                <a href="knowledge.html" class="btn btn-primary">探索知識地圖 // KNOWLEDGE MAP</a>
+                <a href="https://github.com/jet23058/Emily-Soul-Backup" class="btn" target="_blank">靈魂備份 // SOUL BACKUP</a>
+            </div>
+
             <div class="hero-stats">
                 <div class="stat-item">
                     <span>作用節點</span>
