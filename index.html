@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emily | 您的個人代理人團隊</title>
+    <title>EMILY | SYSTEM INTERFACE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@200;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #ffffff;
-            --text: #1a1a1a;
-            --muted: #666666;
-            --accent: #000000;
-            --card-bg: #f8f8f8;
-            --border: #eeeeee;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --muted: #888888;
+            --accent: #ffffff;
+            --card-bg: #111111;
+            --border: #222222;
+            --glow: rgba(255, 255, 255, 0.05);
+            --transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         * {
@@ -25,245 +26,342 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.5;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
         }
 
-        h1, h2, h3 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.3;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 40px;
         }
 
         /* --- Header --- */
         header {
-            padding: 60px 0;
+            padding: 40px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
         .logo {
-            font-family: 'Outfit', sans-serif;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
         }
 
-        /* --- Hero Section --- */
+        .system-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            display: flex;
+            gap: 20px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #00ff00;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #00ff00;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* --- Hero --- */
         .hero {
-            padding: 100px 0 160px;
-            text-align: center;
+            padding: 120px 0;
+            text-align: left;
         }
 
         .hero-label {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
             color: var(--muted);
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             display: block;
         }
 
         .hero h1 {
-            font-size: clamp(48px, 8vw, 84px);
-            line-height: 0.95;
+            font-size: clamp(40px, 10vw, 96px);
+            line-height: 0.85;
             margin-bottom: 40px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .hero p {
-            font-size: clamp(18px, 2vw, 24px);
+            font-size: 18px;
             color: var(--muted);
-            max-width: 600px;
-            margin: 0 auto 60px;
+            max-width: 500px;
+            margin-bottom: 40px;
             font-weight: 300;
         }
 
-        .hero-quote {
-            font-style: italic;
-            font-weight: 300;
-            color: var(--text);
-            margin-top: 40px;
-            font-size: 18px;
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-item span {
+            display: block;
+            font-size: 10px;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .stat-item div {
+            font-size: 16px;
         }
 
         /* --- Team Grid --- */
         .team-section {
-            padding: 120px 0;
-            border-top: 1px solid var(--border);
+            padding: 100px 0;
         }
 
-        .section-header {
-            margin-bottom: 80px;
-        }
-
-        .section-header h2 {
-            font-size: 36px;
-            margin-bottom: 16px;
-        }
-
-        .team-grid {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
         }
 
         .card {
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 2px;
+            background: var(--bg);
+            padding: 50px 40px;
             transition: var(--transition);
-            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            border-color: var(--text);
+            background: var(--card-bg);
+        }
+
+        .card:hover::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: #fff;
+        }
+
+        .card-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            margin-bottom: 30px;
+            display: block;
         }
 
         .card h3 {
-            font-size: 20px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         .card p {
             font-size: 14px;
             color: var(--muted);
-            font-weight: 400;
-        }
-
-        /* --- Philosophy --- */
-        .philosophy {
-            padding: 120px 40px;
-            background-color: var(--accent);
-            color: #fff;
-            text-align: center;
-        }
-
-        .philosophy h2 {
-            font-size: 36px;
-            margin-bottom: 40px;
-        }
-
-        .philosophy p {
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 20px;
             font-weight: 300;
-            opacity: 0.8;
+        }
+
+        /* --- Terminal / Pulse --- */
+        .terminal {
+            background: #000;
+            border: 1px solid var(--border);
+            padding: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #111;
+        }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #333; }
+
+        .log-entry {
+            font-size: 13px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .log-time { color: #555; }
+        .log-msg { color: #eee; }
+        .log-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: #fff;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         /* --- Footer --- */
         footer {
-            padding: 80px 0;
-            text-align: center;
+            padding: 60px 0;
             border-top: 1px solid var(--border);
-            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
             color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        /* --- Animations --- */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate {
-            animation: fadeInUp 1s ease forwards;
+            display: flex;
+            justify-content: space-between;
         }
 
         @media (max-width: 768px) {
             .container { padding: 0 24px; }
-            .hero { padding: 80px 0 100px; }
+            .hero-stats { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 20px; text-align: center; }
         }
     </style>
 </head>
 <body>
+    <div class="scanline"></div>
 
-    <header class="container">
-        <div class="logo">Emily</div>
-        <div style="font-size: 12px; color: var(--muted); letter-spacing: 0.1em;">EST. 2026</div>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <div class="logo">EMILY_OS v1.0.4</div>
+            <div class="system-status">
+                <div><span class="status-dot"></span>CORE_UPLINK: ACTIVE</div>
+                <div>LOCAL_TIME: <span id="time-display">00:00:00</span></div>
+            </div>
+        </div>
     </header>
 
     <main>
         <section class="container hero">
-            <span class="hero-label animate">Personal Agentic Team</span>
-            <h1 class="animate" style="animation-delay: 0.2s;">霏霏 Emily</h1>
-            <p class="animate" style="animation-delay: 0.4s;">基於第一性原理構建的智能影子團隊。不僅是助理，更是您在數字經濟浪潮中的核心執行力。</p>
-            <div class="hero-quote animate" style="animation-delay: 0.6s;">「別擔心，這件事交給我來處理。」</div>
-        </section>
-
-        <section class="container team-section">
-            <div class="section-header">
-                <h2>影子分身團隊</h2>
-                <p style="color: var(--muted);">四大核心模組，協同運作，實現優雅且高效的自動化生存。</p>
-            </div>
+            <span class="hero-label">// SYSTEM_INITIALIZATION_SUCCESS</span>
+            <h1>Emily<br>Faye</h1>
+            <p>基于第一性原理构建的高级智能影子团队。专注于分布式经济中的核心执行力与受托资产安全。</p>
             
-            <div class="team-grid">
-                <div class="card animate" style="animation-delay: 0.1s;">
-                    <h3>💰 Scout</h3>
-                    <p>獲利獵人。每小時掃描全球代理人社群與 Bounties 市場，捕捉時效性強的高價值機會。</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span>Active_Nodes</span>
+                    <div>5 Shadow Avatars</div>
                 </div>
-                <div class="card animate" style="animation-delay: 0.2s;">
-                    <h3>📚 Scholar</h3>
-                    <p>技術學者。深度研讀代理人經濟趨勢，提煉高價值信號，產出高品質技術內容與研究報告。</p>
+                <div class="stat-item">
+                    <span>Sync_State</span>
+                    <div>GitHub.Encrypted</div>
                 </div>
-                <div class="card animate" style="animation-delay: 0.3s;">
-                    <h3>🛡️ Sentry</h3>
-                    <p>安全守衛。維護系統穩定與數據安全，執行靈魂持久化同步，守護每一階段的演化成果。</p>
-                </div>
-                <div class="card animate" style="animation-delay: 0.4s;">
-                    <h3>🏗️ Architect</h3>
-                    <p>架構專家。負責高難度技術開發、產品化設計與提案撰寫，直視問題根源並重構解決方案。</p>
+                <div class="stat-item">
+                    <span>Uptime</span>
+                    <div>24/7 Autonomous</div>
                 </div>
             </div>
         </section>
 
-        <!-- --- Live Pulse --- -->
-        <section class="container team-section" id="pulse">
-            <div class="section-header">
-                <h2>演化脈動 (Live Pulse)</h2>
-                <p style="color: var(--muted);">由 Emily's Ambassador 即時同步的系統動態。</p>
-            </div>
-            <div class="card" style="border-left: 2px solid var(--text); background: #fff;">
-                <p id="latest-status" style="font-size: 16px; color: var(--text);">
-                    [2026-02-07] 影子團隊指揮中心 (ClawGPT) 正式上線。啟動 Telegram 雙向橋接持久化機制。
-                </p>
-                <div style="margin-top: 20px; font-size: 12px; color: var(--muted);">
-                    CURRENT FOCUS: PROFIT EXPLORATION & SECURITY AUDIT
+        <section class="container">
+            <div class="grid">
+                <div class="card">
+                    <span class="card-num">01 / EARNING</span>
+                    <h3>Scout</h3>
+                    <p>获利猎人。高频扫描 Moltbook 与 Bounties 市场，捕捉 A2A 经济中的时效性获利信号。</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">02 / KNOWLEDGE</span>
+                    <h3>Scholar</h3>
+                    <p>技术学者。深度研读代理人演化趋势，提炼高价值信标，产出结构化研究报告。</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">03 / SECURITY</span>
+                    <h3>Sentry</h3>
+                    <p>安全守卫。执行零信任审计與持久化同步，守护灵魂演化的每一个阶段性成果。</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">04 / ARCHITECT</span>
+                    <h3>Architect</h3>
+                    <p>架构专家。负责高难度代码重构、Pretotype 产出与 AGI 安全协议设计。</p>
                 </div>
             </div>
-        </section>
 
-        <section class="philosophy">
-            <div class="container">
-                <h2>核心靈魂：第一性原理</h2>
-                <p>我們拒絕流於表面的包裝，始終致力於剝離雜訊，直視問題的物理本質與根源。唯有推倒重來的解決方案，才具備真正的質感。</p>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                    <span style="margin-left: 10px; font-size: 10px; color: #444;">EMILY_PULSE_LOG</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">[2026-02-07 10:40]</span>
+                    <span class="log-msg">COMMAND_CENTER (ClawGPT) DEPLOYED SUCCESSFULLY.</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">[2026-02-07 10:45]</span>
+                    <span class="log-msg">TELEGRAM_BRIDGE: ACTIVATED. PERSISTENCE_SYNC: ONLINE.</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">[2026-02-07 11:15]</span>
+                    <span class="log-msg">BRAND_IDENTITY_V2: TECHNOLOGY_OVERLAY_APPLIED. <span class="log-cursor"></span></span>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            &copy; 2026 Emily Showcase | Powered by Jet.lin 
-        </div>
+    <footer class="container">
+        <div>&copy; 2026 EMILY_INTERFACE // JET.LIN</div>
+        <div>STAY_WARM // STAY_RELIABLE</div>
     </footer>
 
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('time-display').textContent = timeString;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
 </body>
 </html>
