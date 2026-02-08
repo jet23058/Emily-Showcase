@@ -179,11 +179,10 @@
         /* Tree Layout Positions */
         .n-root { top: 50%; left: 60px; transform: translateY(-50%); width: 320px; border-width: 2px; }
         .n-branch { left: 460px; }
-        .n-scout { top: 2%; }
-        .n-scholar { top: 21%; }
-        .n-sentry { top: 40%; }
-        .n-architect { top: 59%; }
-        .n-curator { top: 78%; }
+        .n-scout { top: 10%; }
+        .n-scholar { top: 35%; }
+        .n-sentry { top: 60%; }
+        .n-architect { top: 85%; }
 
         .n-leaf { left: 820px; width: 240px; border-style: dashed; }
         .l-tips { top: 5%; }
@@ -292,17 +291,16 @@
             <div class="tree-wrapper">
                 <svg class="tree-lines">
                     <!-- Root to Branches -->
-                    <path class="path-link active" d="M380,350 C410,350 430,50 460,50" />
-                    <path class="path-link active" d="M380,350 C410,350 430,180 460,180" />
-                    <path class="path-link active" d="M380,350 C410,350 430,310 460,310" />
-                    <path class="path-link active" d="M380,350 C410,350 430,450 460,450" />
-                    <path class="path-link active" d="M380,350 C410,350 430,580 460,580" />
+                    <path class="path-link active" d="M380,350 C410,350 430,80 460,80" />
+                    <path class="path-link active" d="M380,350 C410,350 430,260 460,260" />
+                    <path class="path-link active" d="M380,350 C410,350 430,440 460,440" />
+                    <path class="path-link active" d="M380,350 C410,350 430,620 460,620" />
                     
                     <!-- Branches to Leaves -->
-                    <path class="path-link" d="M740,50 C770,50 790,50 820,50" />
-                    <path class="path-link" d="M740,180 C770,180 790,180 820,180" />
-                    <path class="path-link" d="M740,310 C770,310 790,320 820,320" />
-                    <path class="path-link active" d="M740,450 C770,450 790,490 820,490" />
+                    <path class="path-link" d="M740,80 C770,80 790,60 820,60" />
+                    <path class="path-link" d="M740,260 C770,260 790,200 820,200" />
+                    <path class="path-link" d="M740,440 C770,440 790,340 820,340" />
+                    <path class="path-link active" d="M740,620 C770,620 790,520 820,520" />
                 </svg>
 
                 <div class="node n-root">
@@ -331,14 +329,8 @@
 
                 <div class="node n-branch n-architect">
                     <span class="node-tag">Avatar 04</span>
-                    <h4>Architect (架構師)</h4>
-                    <p>負責複雜業務邏輯與 AGI 安全協議設計。核心代碼重構專家。</p>
-                </div>
-
-                <div class="node n-branch n-curator">
-                    <span class="node-tag">Avatar 05</span>
-                    <h4>Curator (策展人)</h4>
-                    <p>專責 Showcase 品牌維護與視覺迭代。使用 Gemini-3-Flash 驅動。</p>
+                    <h4>Curator (策展人 & 大使)</h4>
+                    <p>負責 Showcase 品牌維護、視覺迭代與內容更新。將影子團隊成果轉化為公眾資訊。</p>
                 </div>
 
                 <!-- Sub-nodes -->
@@ -367,7 +359,7 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <span>同步節點</span>
-                    <div>6 Shadow Avatars</div>
+                    <div>5 Shadow Avatars</div>
                 </div>
                 <div class="stat-card">
                     <span>信號純度</span>
@@ -375,7 +367,7 @@
                 </div>
                 <div class="stat-card">
                     <span>演化版本</span>
-                    <div>Build 3.2.0 Stable</div>
+                    <div>Build 3.2.1 Stable</div>
                 </div>
             </div>
         </section>
