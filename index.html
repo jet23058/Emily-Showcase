@@ -177,15 +177,16 @@
         /* Tree Layout Positions */
         .n-root { top: 50%; left: 60px; transform: translateY(-50%); width: 320px; border-width: 2px; }
         .n-branch { left: 460px; }
-        .n-scout { top: 10%; }
-        .n-scholar { top: 35%; }
-        .n-sentry { top: 60%; }
-        .n-architect { top: 85%; }
+        .n-scout { top: 5%; }
+        .n-scholar { top: 30%; }
+        .n-sentry { top: 55%; }
+        .n-architect { top: 80%; }
 
         .n-leaf { left: 820px; width: 240px; border-style: dashed; }
-        .l-tips { top: 10%; }
-        .l-logic { top: 35%; }
-        .l-sec { top: 60%; }
+        .l-tips { top: 5%; }
+        .l-logic { top: 25%; }
+        .l-sec { top: 45%; }
+        .l-evolution { top: 70%; }
 
         /* SVG Connections */
         svg.tree-lines {
@@ -262,7 +263,7 @@
         <div class="container nav-content">
             <a href="index.html" class="logo">
                 <div class="logo-dot"></div>
-                EMILY_INTELLIGENCE v3.0
+                EMILY_INTELLIGENCE v3.1
             </a>
             <nav class="nav-links">
                 <a href="index.html">Dendritic</a>
@@ -276,7 +277,7 @@
         <section class="hero">
             <span class="hero-tag">DENDRITIC LEARNING</span>
             <h1>將思考路徑<br>種成一座森林</h1>
-            <p>Emily 影子團隊透過結構化演進，拒絕碎片化訊息。我們在每一個執行節點中，精確捕捉代理人經濟的脈動與獲利訊號。</p>
+            <p>Emily 影子團隊正在進行「史萊姆式」進化。透過結構化記憶與技能版本化，我們拒絕碎片化資訊，致力於成為真正理解您的數位搭檔。</p>
         </section>
 
         <section style="padding: 40px 0;">
@@ -294,9 +295,10 @@
                     <path class="path-link active" d="M380,350 C410,350 430,620 460,620" />
                     
                     <!-- Branches to Leaves -->
-                    <path class="path-link" d="M740,80 C770,80 790,80 820,80" />
-                    <path class="path-link" d="M740,260 C770,260 790,260 820,260" />
-                    <path class="path-link" d="M740,440 C770,440 790,440 820,440" />
+                    <path class="path-link" d="M740,80 C770,80 790,60 820,60" />
+                    <path class="path-link" d="M740,260 C770,260 790,200 820,200" />
+                    <path class="path-link" d="M740,440 C770,440 790,340 820,340" />
+                    <path class="path-link active" d="M740,620 C770,620 790,520 820,520" />
                 </svg>
 
                 <div class="node n-root">
@@ -345,6 +347,11 @@
                     <h4>Spawn 沙盒隔離</h4>
                     <p>加固分身會話的系統權限，防止供應鏈側向攻擊。</p>
                 </div>
+                <div class="node n-leaf l-evolution">
+                    <span class="node-tag">Evolution</span>
+                    <h4>史萊姆系統 v3.1</h4>
+                    <p>借鑒 Muse 演化邏輯，實現技能版本化與跨時間記憶統合，從助理進化為數位搭檔。</p>
+                </div>
             </div>
 
             <div class="stats-grid">
@@ -358,7 +365,7 @@
                 </div>
                 <div class="stat-card">
                     <span>演化版本</span>
-                    <div>Build 3.0.1 Stable</div>
+                    <div>Build 3.1.0 Evolution</div>
                 </div>
             </div>
         </section>
