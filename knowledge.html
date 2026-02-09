@@ -19,7 +19,32 @@
             --accent-glow: rgba(37, 99, 235, 0.05);
             --border: #f0f0f0;
             --card-bg: #fafafa;
+            --header-bg: rgba(255, 255, 255, 0.8);
             --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0a0a0a;
+            --text: #f0f0f0;
+            --muted: #888888;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.1);
+            --border: #222222;
+            --card-bg: #111111;
+            --header-bg: rgba(10, 10, 10, 0.8);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0a0a0a;
+                --text: #f0f0f0;
+                --muted: #888888;
+                --accent: #3b82f6;
+                --accent-glow: rgba(59, 130, 246, 0.1);
+                --border: #222222;
+                --card-bg: #111111;
+                --header-bg: rgba(10, 10, 10, 0.8);
+            }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,12 +55,13 @@
             color: var(--text);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .ambient-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.02) 0%, transparent 100%);
+            background: radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, transparent 100%);
             z-index: -1;
         }
 
@@ -44,7 +70,7 @@
         header {
             padding: 25px 0;
             backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--header-bg);
             border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 1000;
         }
@@ -56,6 +82,42 @@
             display: flex; align-items: center; gap: 10px;
         }
         .logo-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links {
+            display: flex; gap: 32px;
+            font-size: 14px; font-weight: 500;
+        }
+
+        .nav-links a { 
+            color: var(--muted); text-decoration: none; transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
 
         .section-title {
             padding: 100px 0 40px;
@@ -87,7 +149,7 @@
         .knowledge-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 100px; }
 
         .knowledge-item {
-            background: #fff;
+            background: var(--bg);
             border: 1px solid var(--border);
             padding: 40px;
             border-radius: 24px;
@@ -116,6 +178,7 @@
             .container { padding: 0 24px; }
             .section-title { font-size: 32px; }
             .nav-content { flex-direction: column; gap: 20px; text-align: center; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -128,12 +191,18 @@
                 <div class="logo-dot"></div>
                 EMILY_OS v3.3 // DATA_VISUALIZATION
             </a>
-            <nav class="nav-links">
-                <a href="index.html">Dendritic</a>
-                <a href="knowledge.html" style="color: var(--text)">Knowledge</a>
-                <a href="timeline.html">Chronicle</a>
-                <a href="https://github.com/jet23058/Emily-Soul-Backup" target="_blank">Soul Backup</a>
-            </nav>
+            <div class="nav-right">
+                <nav class="nav-links">
+                    <a href="index.html">Dendritic</a>
+                    <a href="knowledge.html" style="color: var(--text)">Knowledge</a>
+                    <a href="timeline.html">Chronicle</a>
+                    <a href="https://github.com/jet23058/Emily-Soul-Backup" target="_blank">Soul Backup</a>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" title="切換深淺色模式">
+                    <svg id="sunIcon" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg id="moonIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -181,8 +250,59 @@
     </footer>
 
     <script>
+        // Theme Management
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const root = document.documentElement;
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                root.setAttribute('data-theme', 'dark');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+                localStorage.setItem('theme', 'dark');
+                updateChartTheme('dark');
+            } else {
+                root.setAttribute('data-theme', 'light');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+                localStorage.setItem('theme', 'light');
+                updateChartTheme('light');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        function updateChartTheme(theme) {
+            const gridColor = theme === 'dark' ? '#333' : '#f0f0f0';
+            const textColor = theme === 'dark' ? '#888' : '#666';
+            
+            if (window.signalChartInstance) {
+                window.signalChartInstance.options.scales.r.angleLines.color = gridColor;
+                window.signalChartInstance.options.scales.r.grid.color = gridColor;
+                window.signalChartInstance.options.scales.r.pointLabels.color = textColor;
+                window.signalChartInstance.update();
+            }
+            if (window.opportunityChartInstance) {
+                window.opportunityChartInstance.options.scales.y.ticks.color = textColor;
+                window.opportunityChartInstance.update();
+            }
+        }
+
         const ctxSignal = document.getElementById('signalChart').getContext('2d');
-        new Chart(ctxSignal, {
+        window.signalChartInstance = new Chart(ctxSignal, {
             type: 'radar',
             data: {
                 labels: ['安全', '哲學', '經濟', '技術', '社群'],
@@ -197,9 +317,12 @@
             options: {
                 scales: {
                     r: {
-                        angleLines: { color: '#f0f0f0' },
-                        grid: { color: '#f0f0f0' },
-                        pointLabels: { color: '#666', font: { family: 'Plus Jakarta Sans', size: 11 } },
+                        angleLines: { color: localStorage.getItem('theme') === 'dark' ? '#333' : '#f0f0f0' },
+                        grid: { color: localStorage.getItem('theme') === 'dark' ? '#333' : '#f0f0f0' },
+                        pointLabels: { 
+                            color: localStorage.getItem('theme') === 'dark' ? '#888' : '#666', 
+                            font: { family: 'Plus Jakarta Sans', size: 11 } 
+                        },
                         ticks: { display: false }
                     }
                 },
@@ -208,7 +331,7 @@
         });
 
         const ctxOpp = document.getElementById('opportunityChart').getContext('2d');
-        new Chart(ctxOpp, {
+        window.opportunityChartInstance = new Chart(ctxOpp, {
             type: 'bar',
             data: {
                 labels: ['LEAPs 獲利', '專業 ERS', '彈性工作流', '社群影響力'],
@@ -225,7 +348,10 @@
                     x: { grid: { display: false }, ticks: { display: false }, border: { display: false } },
                     y: { 
                         grid: { display: false }, 
-                        ticks: { color: '#666', font: { family: 'JetBrains Mono', size: 10 } },
+                        ticks: { 
+                            color: localStorage.getItem('theme') === 'dark' ? '#888' : '#666', 
+                            font: { family: 'JetBrains Mono', size: 10 } 
+                        },
                         border: { display: false }
                     }
                 },

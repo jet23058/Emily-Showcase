@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
         :root {
+            /* Light Mode */
             --bg: #ffffff;
             --text: #0a0a0a;
             --muted: #666666;
@@ -19,7 +20,38 @@
             --border: #f0f0f0;
             --card-bg: #fafafa;
             --node-line: #e5e7eb;
+            --header-bg: rgba(255, 255, 255, 0.8);
+            --modal-overlay: rgba(0,0,0,0.4);
             --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode */
+            --bg: #0a0a0a;
+            --text: #f0f0f0;
+            --muted: #888888;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.2);
+            --border: #222222;
+            --card-bg: #111111;
+            --node-line: #333333;
+            --header-bg: rgba(10, 10, 10, 0.8);
+            --modal-overlay: rgba(0,0,0,0.7);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0a0a0a;
+                --text: #f0f0f0;
+                --muted: #888888;
+                --accent: #3b82f6;
+                --accent-glow: rgba(59, 130, 246, 0.2);
+                --border: #222222;
+                --card-bg: #111111;
+                --node-line: #333333;
+                --header-bg: rgba(10, 10, 10, 0.8);
+                --modal-overlay: rgba(0,0,0,0.7);
+            }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,14 +62,15 @@
             color: var(--text);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .ambient-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.03) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.03) 0%, transparent 40%);
+                radial-gradient(circle at 10% 20%, var(--accent-glow) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--accent-glow) 0%, transparent 40%);
             z-index: -1;
         }
 
@@ -47,7 +80,7 @@
         header {
             padding: 25px 0;
             backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--header-bg);
             border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 1000;
         }
@@ -76,6 +109,12 @@
             box-shadow: 0 0 10px var(--accent);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
         .nav-links {
             display: flex; gap: 32px;
             font-size: 14px; font-weight: 500;
@@ -93,6 +132,26 @@
 
         .nav-links a:hover { color: var(--text); }
         .nav-links a:hover::after { width: 100%; }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
 
         /* Hero Section */
         .hero { padding: 120px 0 80px; }
@@ -114,9 +173,7 @@
             font-weight: 700;
             letter-spacing: -0.03em;
             margin-bottom: 32px;
-            background: linear-gradient(135deg, #0a0a0a 0%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text);
         }
 
         .hero p {
@@ -135,7 +192,7 @@
         .section-header span { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
 
         .tree-wrapper {
-            background: #ffffff;
+            background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 60px;
@@ -146,7 +203,7 @@
         }
 
         .node {
-            background: #ffffff;
+            background: var(--bg);
             border: 1px solid var(--border);
             padding: 24px;
             border-radius: 16px;
@@ -161,14 +218,14 @@
         .node:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
-            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.08);
+            box-shadow: 0 12px 24px var(--accent-glow);
         }
 
         /* Modal / Popup */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
+            background: var(--modal-overlay);
             backdrop-filter: blur(8px);
             z-index: 2000;
             display: none;
@@ -184,7 +241,8 @@
         }
 
         .modal-content {
-            background: #fff;
+            background: var(--bg);
+            color: var(--text);
             width: 90%;
             max-width: 500px;
             border-radius: 24px;
@@ -193,6 +251,7 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.1);
             transform: translateY(20px);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid var(--border);
         }
 
         .modal-overlay.active .modal-content {
@@ -227,12 +286,12 @@
         .timeline-item { position: relative; margin-bottom: 24px; }
         .timeline-item::before {
             content: ''; position: absolute; left: -30px; top: 6px; width: 9px; height: 9px;
-            background: var(--accent); border-radius: 50%; border: 2px solid #fff;
+            background: var(--accent); border-radius: 50%; border: 2px solid var(--bg);
             box-shadow: 0 0 0 1px var(--border);
         }
 
         .t-time { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 4px; display: block; }
-        .t-event { font-size: 14px; line-height: 1.5; color: #333; font-weight: 500; }
+        .t-event { font-size: 14px; line-height: 1.5; color: var(--text); font-weight: 500; }
         .t-desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
         .node-tag {
@@ -308,7 +367,7 @@
             transition: var(--transition);
         }
 
-        .stat-card:hover { background: #fff; border-color: var(--accent); }
+        .stat-card:hover { background: var(--bg); border-color: var(--accent); }
         .stat-card span { font-size: 12px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 12px; }
         .stat-card div { font-size: 28px; font-weight: 700; color: var(--text); }
 
@@ -346,12 +405,18 @@
                 <div class="logo-dot"></div>
                 EMILY_INTELLIGENCE v3.3
             </a>
-            <nav class="nav-links">
-                <a href="index.html">Dendritic</a>
-                <a href="knowledge.html">Knowledge</a>
-                <a href="timeline.html">Chronicle</a>
-                <a href="https://github.com/jet23058/Emily-Soul-Backup" target="_blank">Soul Backup</a>
-            </nav>
+            <div class="nav-right">
+                <nav class="nav-links">
+                    <a href="index.html">Dendritic</a>
+                    <a href="knowledge.html">Knowledge</a>
+                    <a href="timeline.html">Chronicle</a>
+                    <a href="https://github.com/jet23058/Emily-Soul-Backup" target="_blank">Soul Backup</a>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" title="切換深淺色模式">
+                    <svg id="sunIcon" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg id="moonIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -495,6 +560,41 @@
     </div>
 
     <script>
+        // Theme Management
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const root = document.documentElement;
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                root.setAttribute('data-theme', 'dark');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                root.setAttribute('data-theme', 'light');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Initialize theme based on preference or system
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            // Respect system preference if no explicit choice
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
         const timelineData = {
             'n-scout': {
                 tag: 'Avatar 01',
