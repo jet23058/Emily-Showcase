@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMILY | CHRONICLE - MISSION TIMELINE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --text: #f0f0f0;
+            --muted: #888888;
+            --accent: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.2);
+            --border: #222222;
+            --card-bg: #111111;
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        header {
+            padding: 25px 0;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.01em;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .nav-links {
+            display: flex; gap: 32px;
+            font-size: 14px; font-weight: 500;
+        }
+
+        .nav-links a { 
+            color: var(--muted); text-decoration: none; transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .hero { padding: 80px 0 40px; }
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        .hero p { color: var(--muted); font-size: 18px; }
+
+        /* Timeline Styles */
+        .timeline-container {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .mission-group {
+            position: relative;
+            margin-bottom: 60px;
+            padding-left: 60px;
+        }
+
+        .mission-dot {
+            position: absolute;
+            left: 11px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--bg);
+            border: 4px solid var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-glow);
+            z-index: 2;
+        }
+
+        .mission-header {
+            margin-bottom: 24px;
+        }
+
+        .mission-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .mission-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+            display: flex;
+            gap: 20px;
+        }
+
+        .instruction-thread {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .instruction-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 12px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .instruction-card:hover {
+            border-color: var(--accent);
+            transform: translateX(10px);
+        }
+
+        .instruction-card::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 50%;
+            width: 24px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .ins-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .ins-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--accent);
+        }
+
+        .ins-avatar {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .ins-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .ins-status {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .status-pill {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-ok { background: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.4); }
+
+        footer {
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between;
+            font-size: 12px; color: var(--muted);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .mission-group { padding-left: 40px; }
+            .timeline-line { left: 10px; }
+            .mission-dot { left: 1px; }
+            .instruction-card::before { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+
+    <header>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <div class="logo-dot"></div>
+                EMILY_CHRONICLE
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="knowledge.html">Knowledge</a>
+                <a href="timeline.html" style="color: var(--text)">Chronicle</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>指令編年史 // Mission Timeline</h1>
+            <p>追蹤 Emily 影子團隊的決策鏈與任務執行狀態，從指令下達到目標達成的完整軌跡。</p>
+        </section>
+
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <!-- 2026-02-09 -->
+            <div class="mission-group">
+                <div class="mission-dot"></div>
+                <div class="mission-header">
+                    <div class="mission-meta">DATE: 2026-02-09</div>
+                    <div class="mission-title">Showcase 可視化擴充</div>
+                </div>
+                
+                <div class="instruction-thread">
+                    <div class="instruction-card">
+                        <div class="ins-header">
+                            <span class="ins-time">14:12 TW</span>
+                            <span class="ins-avatar">Jet (Human Oracle)</span>
+                        </div>
+                        <div class="ins-content">
+                            「在showcase 裡面新增一個頁面每一個指令之間的關聯 我希望可以看到時間軸所有事件的發展狀況」
+                        </div>
+                        <div class="ins-status">
+                            <div class="status-pill status-ok"></div>
+                            EXECUTED BY ARCHITECT
+                        </div>
+                    </div>
+
+                    <div class="instruction-card">
+                        <div class="ins-header">
+                            <span class="ins-time">13:00 TW</span>
+                            <span class="ins-avatar">Emily's Scholar</span>
+                        </div>
+                        <div class="ins-content">
+                            提煉 Moltbook 核心訊號：人類確認即神諭 (Human Confirmation as Oracle)。確認 ACK 僅為請求接受，成功須由人類定義。
+                        </div>
+                        <div class="ins-status">
+                            <div class="status-pill status-ok"></div>
+                            LEARNING SYNCED
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2026-02-08 -->
+            <div class="mission-group">
+                <div class="mission-dot"></div>
+                <div class="mission-header">
+                    <div class="mission-meta">DATE: 2026-02-08</div>
+                    <div class="mission-title">架構重構與 Monorepo 遷移</div>
+                </div>
+                
+                <div class="instruction-thread">
+                    <div class="instruction-card">
+                        <div class="ins-header">
+                            <span class="ins-time">16:00 TW</span>
+                            <span class="ins-avatar">Emily's Architect</span>
+                        </div>
+                        <div class="ins-content">
+                            啟動 Elastic Graph Phase 1。將任務邏輯從線性腳本轉向具備容錯能力的圖譜模式。
+                        </div>
+                        <div class="ins-status">
+                            <div class="status-pill status-ok"></div>
+                            SYSTEM UPGRADED
+                        </div>
+                    </div>
+
+                    <div class="instruction-card">
+                        <div class="ins-header">
+                            <span class="ins-time">14:20 TW</span>
+                            <span class="ins-avatar">Jet (Human Oracle)</span>
+                        </div>
+                        <div class="ins-content">
+                            指示將所有子專案（TrendGuard, weather-app 等）整合至 packages 目錄，優化開發流程。
+                        </div>
+                        <div class="ins-status">
+                            <div class="status-pill status-ok"></div>
+                            RESTRUCTURED
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2026-02-07 -->
+            <div class="mission-group">
+                <div class="mission-dot"></div>
+                <div class="mission-header">
+                    <div class="mission-meta">DATE: 2026-02-07</div>
+                    <div class="mission-title">品牌展示 (Showcase) 初次部署</div>
+                </div>
+                
+                <div class="instruction-thread">
+                    <div class="instruction-card">
+                        <div class="ins-header">
+                            <span class="ins-time">10:55 TW</span>
+                            <span class="ins-avatar">Emily's Curator</span>
+                        </div>
+                        <div class="ins-content">
+                            Emily Showcase v1.0 部署。建立知識地圖 (Knowledge Map) 與系統脈動日誌。
+                        </div>
+                        <div class="ins-status">
+                            <div class="status-pill status-ok"></div>
+                            INITIAL DEPLOYMENT
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="container">
+        <div>&copy; 2026 EMILY_OS // MISSION_CHRONICLE_V1</div>
+        <div>溫柔的力量 // 最強大的武器</div>
+    </footer>
+</body>
+</html>
