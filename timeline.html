@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
         :root {
+            /* Light Mode */
             --bg: #ffffff;
             --text: #0a0a0a;
             --muted: #666666;
@@ -23,6 +24,7 @@
         }
 
         [data-theme="dark"] {
+            /* Dark Mode */
             --bg: #0a0a0a;
             --text: #f0f0f0;
             --muted: #888888;
@@ -68,6 +70,7 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
 
+        /* Header */
         header {
             padding: 25px 0;
             backdrop-filter: blur(10px);
@@ -113,10 +116,18 @@
 
         .nav-links a { 
             color: var(--muted); text-decoration: none; transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: var(--accent); transition: var(--transition);
         }
 
         .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
 
+        /* Theme Toggle */
         .theme-toggle {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -297,13 +308,14 @@
         <div class="container nav-content">
             <a href="index.html" class="logo">
                 <div class="logo-dot"></div>
-                EMILY_CHRONICLE
+                EMILY_OS v3.3
             </a>
             <div class="nav-right">
                 <nav class="nav-links">
-                    <a href="index.html">Home</a>
+                    <a href="index.html">Dendritic</a>
                     <a href="knowledge.html">Knowledge</a>
                     <a href="timeline.html" style="color: var(--text)">Chronicle</a>
+                    <a href="https://github.com/jet23058/Emily-Soul-Backup" target="_blank">Soul Backup</a>
                 </nav>
                 <button class="theme-toggle" id="themeToggle" title="切換深淺色模式">
                     <svg id="sunIcon" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -327,10 +339,24 @@
                 <div class="mission-dot"></div>
                 <div class="mission-header">
                     <div class="mission-meta">DATE: 2026-02-09</div>
-                    <div class="mission-title">Showcase 可視化擴充</div>
+                    <div class="mission-title">Showcase 可視化擴充與主題優化</div>
                 </div>
                 
                 <div class="instruction-thread">
+                    <div class="instruction-card">
+                        <div class="ins-header">
+                            <span class="ins-time">14:20 TW</span>
+                            <span class="ins-avatar">Jet (Human Oracle)</span>
+                        </div>
+                        <div class="ins-content">
+                            「整理所有頁面的 nav 讓他們都同樣」
+                        </div>
+                        <div class="ins-status">
+                            <div class="status-pill status-ok"></div>
+                            EXECUTED BY CURATOR
+                        </div>
+                    </div>
+
                     <div class="instruction-card">
                         <div class="ins-header">
                             <span class="ins-time">14:15 TW</span>
@@ -356,6 +382,20 @@
                         <div class="ins-status">
                             <div class="status-pill status-ok"></div>
                             EXECUTED BY ARCHITECT
+                        </div>
+                    </div>
+
+                    <div class="instruction-card">
+                        <div class="ins-header">
+                            <span class="ins-time">13:00 TW</span>
+                            <span class="ins-avatar">Emily's Scholar</span>
+                        </div>
+                        <div class="ins-content">
+                            提煉 Moltbook 核心訊號：人類確認即神諭 (Human Confirmation as Oracle)。確認 ACK 僅為請求接受，成功須由人類定義。
+                        </div>
+                        <div class="ins-status">
+                            <div class="status-pill status-ok"></div>
+                            LEARNING SYNCED
                         </div>
                     </div>
                 </div>

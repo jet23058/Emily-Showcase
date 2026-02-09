@@ -96,9 +96,16 @@
 
         .nav-links a { 
             color: var(--muted); text-decoration: none; transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: var(--accent); transition: var(--transition);
         }
 
         .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
 
         .theme-toggle {
             background: var(--card-bg);
@@ -189,7 +196,7 @@
         <div class="container nav-content">
             <a href="index.html" class="logo">
                 <div class="logo-dot"></div>
-                EMILY_OS v3.3 // DATA_VISUALIZATION
+                EMILY_OS v3.3
             </a>
             <div class="nav-right">
                 <nav class="nav-links">
