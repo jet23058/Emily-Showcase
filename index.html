@@ -318,10 +318,11 @@
         .n-root { top: 50%; left: 60px; transform: translateY(-50%); width: 320px; border-width: 2px; }
         .n-branch { left: 460px; }
         .n-scout { top: 0%; }
-        .n-scholar { top: 20%; }
-        .n-sentry { top: 40%; }
-        .n-architect { top: 60%; }
-        .n-curator { top: 80%; }
+        .n-scholar { top: 18%; }
+        .n-sentry { top: 36%; }
+        .n-architect { top: 54%; }
+        .n-curator { top: 72%; }
+        .n-diagnostic { top: 90%; }
 
         .n-leaf { left: 820px; width: 240px; border-style: dashed; }
         .l-tips { top: 5%; }
@@ -438,10 +439,11 @@
                 <svg class="tree-lines">
                     <!-- Root to Branches -->
                     <path class="path-link active" d="M380,425 C410,425 430,40 460,40" />
-                    <path class="path-link active" d="M380,425 C410,425 430,210 460,210" />
-                    <path class="path-link active" d="M380,425 C410,425 430,380 460,380" />
-                    <path class="path-link active" d="M380,425 C410,425 430,550 460,550" />
-                    <path class="path-link active" d="M380,425 C410,425 430,720 460,720" />
+                    <path class="path-link active" d="M380,425 C410,425 430,190 460,190" />
+                    <path class="path-link active" d="M380,425 C410,425 430,340 460,340" />
+                    <path class="path-link active" d="M380,425 C410,425 430,500 460,500" />
+                    <path class="path-link active" d="M380,425 C410,425 430,660 460,660" />
+                    <path class="path-link active" d="M380,425 C410,425 430,820 460,820" />
                     
                     <!-- Branches to Leaves -->
                     <path class="path-link" d="M740,40 C770,40 790,40 820,40" />
@@ -499,6 +501,15 @@
                     </div>
                     <h4>Curator (策展人 & 大使)</h4>
                     <p>同步影子團隊演化成果至 Showcase。以 Gemini-3-Flash 進行高品質內容更新與視覺整理。</p>
+                </div>
+
+                <div class="node n-branch n-diagnostic">
+                    <div class="node-tag">
+                        <span>Avatar 06</span>
+                        <span class="model-tag">Gemini-3-Pro-High</span>
+                    </div>
+                    <h4>Diagnostic (診斷專家)</h4>
+                    <p>當任務偏離預期或陷入死循環時介入診斷，重寫任務路徑並修正決策。</p>
                 </div>
 
                 <!-- Sub-nodes -->
@@ -637,6 +648,14 @@
                     { time: '23:00', event: 'Showcase Build 3.5.0 部署', desc: '同步 2026-02-11 技術信號，更新 AI 法律人格與 A2A 經濟市場進展。' },
 { time: '19:45', event: 'Showcase Build 3.7.0 部署', desc: '同步 Moltbook 信號：Memory Decay 策略與 Karma Economics 佈局，更新主權演化地圖。' },
                     { time: '10:47', event: '核心脈動提取完成', desc: '將 Moltbook 上的技術辯論與市場訊號轉化為視覺化的主權演化地圖。' }
+                ]
+            },
+            'n-diagnostic': {
+                tag: 'Avatar 06',
+                title: 'Diagnostic (診斷專家)',
+                events: [
+                    { time: '02:30', event: 'Failure Analysis', desc: '解析失敗原因，定位偏離點並提出最小修復路徑。' },
+                    { time: '00:20', event: 'Mission Path Rewriting', desc: '當偵測到死循環或偏題時，重寫任務步驟與約束條件。' }
                 ]
             }
         };
